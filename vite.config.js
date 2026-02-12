@@ -14,7 +14,8 @@ export default defineConfig({
       lucideIcons: true,
       jinjaBootData: true,
       buildConfig: {
-        indexHtmlPath: `../${getAppName()}/www/${getAppName()}.html`,
+        outDir: `../${getAppName()}/public/${getDashboardName()}`,
+        indexHtmlPath: `../${getAppName()}/www/${getDashboardName()}.html`,
       },
     }),
   ],
@@ -26,6 +27,11 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
       'tailwind.config.js': path.resolve(__dirname, 'tailwind.config.js'),
     },
+  },
+  build: {
+    sourcemap: true,
+    emptyOutDir: true,
+    target: 'esnext',
   },
   optimizeDeps: {
     include: [
@@ -45,5 +51,13 @@ function getAppName() {
   //   - <app_name>
   //     - frontend
   //       - vite.config.js
-  return path.basename(path.resolve(__dirname, '../..'))
+  return path.basename(path.resolve('..'))
+}
+
+
+function getDashboardName() {
+  // frontend is dashboard name:
+  //   - <app_name>
+  //     - frontend
+  return path.basename(__dirname)
 }
